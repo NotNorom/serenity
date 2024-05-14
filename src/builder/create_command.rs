@@ -338,8 +338,6 @@ pub struct CreateCommand<'a> {
     #[serde(skip_serializing_if = "Option::is_none")]
     default_member_permissions: Option<Permissions>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    dm_permission: Option<bool>,
-    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "type")]
     kind: Option<CommandType>,
     #[cfg(feature = "unstable")]
@@ -362,7 +360,6 @@ impl<'a> CreateCommand<'a> {
             description: None,
             description_localizations: HashMap::new(),
             default_member_permissions: None,
-            dm_permission: None,
 
             #[cfg(feature = "unstable")]
             integration_types: None,
@@ -412,13 +409,6 @@ impl<'a> CreateCommand<'a> {
     /// Specifies the default permissions required to execute the command.
     pub fn default_member_permissions(mut self, permissions: Permissions) -> Self {
         self.default_member_permissions = Some(permissions);
-        self
-    }
-
-    /// Specifies if the command is available in DMs.
-    #[cfg_attr(feature = "unstable", deprecated = "Use contexts instead")]
-    pub fn dm_permission(mut self, enabled: bool) -> Self {
-        self.dm_permission = Some(enabled);
         self
     }
 

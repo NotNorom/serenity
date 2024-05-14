@@ -73,11 +73,6 @@ pub struct Command {
     pub options: FixedArray<CommandOption>,
     /// The default permissions required to execute the command.
     pub default_member_permissions: Option<Permissions>,
-    /// Indicates whether the command is available in DMs with the app, only for globally-scoped
-    /// commands. By default, commands are visible.
-    #[serde(default)]
-    #[deprecated = "Use Command::contexts"]
-    pub dm_permission: Option<bool>,
     /// Indicates whether the command is [age-restricted](https://discord.com/developers/docs/interactions/application-commands#agerestricted-commands),
     /// defaults to false.
     #[serde(default)]

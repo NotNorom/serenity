@@ -6,11 +6,11 @@ use serde_json::from_value;
 use super::InstallationContext;
 use super::{CommandInteraction, ComponentInteraction, ModalInteraction, PingInteraction};
 use crate::internal::prelude::*;
-use crate::model::guild::PartialMember;
 use crate::model::id::{ApplicationId, InteractionId};
 #[cfg(feature = "unstable")]
 use crate::model::id::{GuildId, MessageId, UserId};
 use crate::model::monetization::Entitlement;
+#[cfg(feature = "unstable")]
 use crate::model::user::User;
 use crate::model::utils::deserialize_val;
 #[cfg(feature = "unstable")]
@@ -393,32 +393,6 @@ impl serde::Serialize for AuthorizingIntegrationOwners {
 
         serializer.end()
     }
-}
-
-/// Sent when a [`Message`] is a response to an [`Interaction`].
-///
-/// [`Message`]: crate::model::channel::Message
-///
-/// [Discord docs](https://discord.com/developers/docs/interactions/receiving-and-responding#message-interaction-object).
-#[cfg_attr(not(ignore_serenity_deprecated), deprecated = "Use Message::interaction_metadata")]
-#[cfg_attr(feature = "typesize", derive(typesize::derive::TypeSize))]
-#[derive(Clone, Debug, Deserialize, Serialize)]
-#[non_exhaustive]
-pub struct MessageInteraction {
-    /// The id of the interaction.
-    pub id: InteractionId,
-    /// The type of the interaction.
-    #[serde(rename = "type")]
-    pub kind: InteractionType,
-    /// The name of the [`Command`].
-    ///
-    /// [`Command`]: crate::model::application::Command
-    pub name: FixedString<u8>,
-    /// The user who invoked the interaction.
-    pub user: User,
-    /// The member who invoked the interaction in the guild.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub member: Option<PartialMember>,
 }
 
 /// Metadata about the interaction, including the source of the interaction relevant server and
